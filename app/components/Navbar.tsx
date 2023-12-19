@@ -1,9 +1,12 @@
 "use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   let { userState, userDispatch }: any = useUser();
   console.log(userState);
+  const router = useRouter();
 
   return (
     <div className="navbar bg-orange-200">
@@ -26,36 +29,35 @@ const Navbar = () => {
         </a>
       </div>
       <div className="navbar-end">
-        {/* <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
-        </div> */}
-        {/* <div className="dropdown dropdown-end">
-          <ul className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div> */}
         <ul className="flex gap-6 font-bold mx-5">
           {userState.user ? (
             <>
-              <li>Logout</li>
-              <li>Profile</li>
-              <li>Cart</li>
+              <li>
+                <a
+                  onClick={() => {
+                    userDispatch({ type: "UNSET_USER" });
+                    router.push("/signin");
+                  }}
+                >
+                  Logout
+                </a>
+              </li>
+              <li>
+                <a>Profile</a>
+              </li>
+              <li>
+                <a>Cart</a>
+              </li>
             </>
           ) : (
-            <li></li>
+            <>
+              <li>
+                <Link href={"/signin"}>Sign In</Link>
+              </li>
+              <li>
+                <Link href={"/signup"}>Sign Up</Link>
+              </li>
+            </>
           )}
         </ul>
       </div>

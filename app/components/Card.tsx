@@ -1,6 +1,6 @@
 const Card = ({ product }: any) => {
   return (
-    <div className="card card-compact w-1/5 bg-base-100 shadow-xl">
+    <div className="card card-compact lg:w-1/5 sm:w-1/3 bg-base-100 shadow-xl">
       <figure className="w-fit object-cover">
         <img
           src={product.images[0]}

@@ -7,9 +7,9 @@ const Home = async () => {
 
   return (
     <div className="p-10">
-      <div className="flex gap-5">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-center justify-center">
         {products.map((product: any) => {
-          return <Card product={product} />;
+          return <Card key={product._id} product={product} />;
         })}
       </div>
       <div className="p-10"></div>
