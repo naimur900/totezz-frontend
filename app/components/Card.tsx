@@ -1,10 +1,15 @@
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 const Card = ({ product }: any) => {
+  const router = useRouter();
   return (
     <div className="card card-compact lg:w-1/5 sm:w-1/3 bg-base-100 shadow-xl">
       <figure className="w-fit object-cover">
         <img
           src={product.images[0]}
-          alt="Shoes"
+          alt="Bag"
           // className="w-auto object-cover"
         />
       </figure>
@@ -16,7 +21,23 @@ const Card = ({ product }: any) => {
 
         <p>{product.description}</p>
         <div className="card-actions justify-center">
-          <button className="btn btn-primary">Buy Now</button>
+          {/* <button
+            className="btn btn-primary"
+            // onClick={() => {
+            //   router.push("/productDetails");
+            // }}
+          >
+            Show
+          </button> */}
+          <Link
+            className="btn btn-primary"
+            href={{
+              pathname: "/productDetails",
+              query: { productId: product._id },
+            }}
+          >
+            Show
+          </Link>
         </div>
       </div>
     </div>

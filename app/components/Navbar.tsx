@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className="navbar-start">
         <ul className="menu menu-sm flex-row font-bold">
           <li>
-            <a>Homepage</a>
+            <Link href={"/"}>Home</Link>
           </li>
           <li>
             <a>Portfolio</a>
