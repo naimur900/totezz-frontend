@@ -15,10 +15,8 @@ const page = async ({ searchParams }: any) => {
       }),
     });
     const product = await response.json();
-    // console.log(product);
 
     return product ? <ProductOne product={product} /> : null;
-    // console.log(product);
   } catch (error) {
     console.log("Error occurred:", error);
     return null;

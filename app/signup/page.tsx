@@ -9,8 +9,8 @@ const signUpSchmea = z
     firstName: z.string().min(2, "Name should be atleast of 2 characters"),
     lastName: z.string().min(2, "Name should be atleast of 2 characters"),
     contactNumber: z.string().max(11),
-    password: z.string().min(8, "Password must be atleast 8 characters"),
-    confirmPassword: z.string().min(8, "Password must be atleast 8 characters"),
+    password: z.string().min(3, "Password must be atleast 8 characters"),
+    confirmPassword: z.string().min(3, "Password must be atleast 8 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords did not match",

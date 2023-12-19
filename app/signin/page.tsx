@@ -105,9 +105,3 @@ export default function SignInPage() {
     </>
   );
 }
-// function userDispatch(arg0: {
-//   type: string;
-//   payload: { email: any; firstName: any; lastName: any };
-// }) {
-//   throw new Error("Function not implemented.");
-// }

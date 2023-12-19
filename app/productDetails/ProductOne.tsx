@@ -1,3 +1,5 @@
+import Button from "../components/Button";
+
 const ProductOne = ({ product }: any) => {
   const { name, description, images, price } = product;
   return (
@@ -12,7 +14,7 @@ const ProductOne = ({ product }: any) => {
             <h3>{description}</h3>
             <h3>{price}Tk</h3>
           </div>
-          <button></button>
+          <Button text={"Add to Cart"} endpoint={""} color={"primary"} />
         </div>
       </div>
     </div>

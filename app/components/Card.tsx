@@ -7,11 +7,7 @@ const Card = ({ product }: any) => {
   return (
     <div className="card card-compact lg:w-1/5 sm:w-1/3 bg-base-100 shadow-xl">
       <figure className="w-fit object-cover">
-        <img
-          src={product.images[0]}
-          alt="Bag"
-          // className="w-auto object-cover"
-        />
+        <img src={product.images[0]} alt="Bag" />
       </figure>
       <div className="card-body">
         <div className="flex justify-between">
@@ -21,14 +17,6 @@ const Card = ({ product }: any) => {
 
         <p>{product.description}</p>
         <div className="card-actions justify-center">
-          {/* <button
-            className="btn btn-primary"
-            // onClick={() => {
-            //   router.push("/productDetails");
-            // }}
-          >
-            Show
-          </button> */}
           <Link
             className="btn btn-primary"
             href={{
