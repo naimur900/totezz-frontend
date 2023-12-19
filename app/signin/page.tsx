@@ -1,46 +1,37 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useReducer } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useUser } from "../context/UserContext";
 
-let isSignedIn = false;
-const userReducer = (userState: any, action: any) => {
-  if (isSignedIn) {
-    return [
-      ...userState,
-      {
-        email: action.payload.email,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        isSignedIn: isSignedIn,
-      },
-    ];
-  } else {
-    // isSignedIn = !isSignedIn;
-    console.log(isSignedIn);
-    return console.log("Ber kore dilam");
-  }
-};
+// const signUpSchmea = z
+//   .object({
+//     email: z.string().email(),
+//     firstName: z.string().min(2, "Name should be atleast of 2 characters"),
+//     lastName: z.string().min(2, "Name should be atleast of 2 characters"),
+//     contactNumber: z.string().max(11),
+//     password: z.string().min(8, "Password must be atleast 8 characters"),
+//     confirmPassword: z.string().min(8, "Password must be atleast 8 characters"),
+//   })
+//   .refine((data) => data.password === data.confirmPassword, {
+//     message: "Passwords did not match",
+//     path: ["confirmPassword"],
+//   });
 
-const signInSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-});
+// type tSignUpschema = z.infer<typeof signUpSchmea>;
 
-type tSignInSchema = z.infer<typeof signInSchema>;
+export default function SignInPage() {
+  const value = useUser();
+  const router = useRouter();
+  const { userState, userDispatch }: any = value;
 
-export default function signInPage() {
-  const [userState, dispatch] = useReducer(userReducer, []);
   const {
     register,
-    reset,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm<tSignInSchema>({ resolver: zodResolver(signInSchema) });
+  } = useForm();
 
-  const onsubmit = async (data: tSignInSchema) => {
-    // console.log("ekhane");
+  const onSubmit = async (data: any) => {
     const { email, password } = data;
 
     try {
@@ -57,31 +48,30 @@ export default function signInPage() {
       const { firstName, lastName, token }: any = await response.json();
 
       if (response.ok) {
-        isSignedIn = !isSignedIn;
+        console.log(firstName, lastName, token);
 
-        dispatch({
-          type: isSignedIn,
+        userDispatch({
+          type: "SET_USER",
           payload: { email: email, firstName: firstName, lastName: lastName },
         });
-        // navigate("/app/page.tsx");
         alert("Signin successful!");
+        router.push("/");
       } else {
         const error = await response.json(); // Extract error message
         alert(error.message); // Show error message
       }
     } catch (error) {
-      console.log("Ekhane chole ashtese");
+      console.log("Error occurred:", error);
     }
+
     reset();
   };
-
-  console.log(userState);
 
   return (
     <>
       <h1 className="text-center my-14">Sign In</h1>
       <form
-        onSubmit={handleSubmit(onsubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center mx-auto max-w-md gap-2"
       >
         <input
@@ -90,23 +80,34 @@ export default function signInPage() {
           {...register("email")}
           className="input input-bordered w-full max-w-xs mb-2"
         />
-        {errors.email && (
+        {/* {errors.email && (
           <p className="text-red-500">{`${errors.email.message}`}</p>
-        )}
+        )} */}
+
         <input
           type="password"
           placeholder="Password"
           {...register("password")}
           className="input input-bordered w-full max-w-xs mb-2"
         />
+        {/* {errors.password && (
+          <p className="text-red-500">{`${errors.password.message}`}</p>
+        )} */}
+
         <button
           disabled={isSubmitting}
           type="submit"
           className="btn btn-primary mt-4 disabled:bg-slate-500"
         >
-          Sign In
+          Register
         </button>
       </form>
     </>
   );
 }
+// function userDispatch(arg0: {
+//   type: string;
+//   payload: { email: any; firstName: any; lastName: any };
+// }) {
+//   throw new Error("Function not implemented.");
+// }

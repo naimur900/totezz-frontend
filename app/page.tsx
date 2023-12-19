@@ -4,7 +4,6 @@ import Card from "./components/Card";
 const Home = async () => {
   const res = await fetch("http://localhost:5000/product/getall");
   const products = await res.json();
-  // console.log(products);
 
   return (
     <div className="p-10">
@@ -14,7 +13,6 @@ const Home = async () => {
         })}
       </div>
       <div className="p-10"></div>
-      {/* <Accordian /> */}
     </div>
   );
 };
