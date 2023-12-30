@@ -15,7 +15,7 @@ const Card = ({ product }: any) => {
           <h2 className="card-title">{product.price}Tk</h2>
         </div>
 
-        <p>{product.description}</p>
+        <p>Stock:{product.stock}</p>
         <div className="card-actions justify-center">
           <Link
             className="btn btn-primary"

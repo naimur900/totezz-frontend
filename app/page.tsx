@@ -4,7 +4,9 @@ import Carousal from "./components/Carousal";
 import HomeCenterText from "./components/HomeCenterText";
 
 const Home = async () => {
-  const res = await fetch("http://localhost:5000/product/getall");
+  const res = await fetch("http://localhost:5000/product/getall", {
+    cache: "no-store",
+  });
   const products = await res.json();
 
   return (

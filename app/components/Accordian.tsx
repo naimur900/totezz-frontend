@@ -1,6 +1,6 @@
 const Accordian = () => {
   return (
-    <div>
+    <div className="px-48 py-16">
       <div className="collapse collapse-plus bg-orange-200 my-3">
         <input type="radio" name="my-accordion-3" checked="checked" />
         <div className="collapse-title text-xl font-medium">

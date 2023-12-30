@@ -1,6 +1,6 @@
 const HomeCenterText = () => {
   return (
-    <div className="flex flex-row gap-9 justify-center items-center py-12 a">
+    <div className="flex flex-col sm:flex-row gap-9 justify-center items-center py-12 a">
       <div className="w-1/3 p-12">
         <h1 className="font-extrabold ">
           "Elevate Your Style, Embrace Our Canvas: Unveiling Totezz Exquisite
