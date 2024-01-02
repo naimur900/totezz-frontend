@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <div className="flex flex-row gap-16 justify-center items-center bg-orange-200 p-14 mt-20">
+      <div className="flex flex-row gap-16 justify-center items-center bg-orange-200 p-14 mt-20 mb-0">
         <div>
           <h1 className="font-extrabold text-3xl">Totezz</h1>
         </div>

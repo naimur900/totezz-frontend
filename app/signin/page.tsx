@@ -99,7 +99,7 @@ export default function SignInPage() {
           type="submit"
           className="btn btn-primary mt-4 disabled:bg-slate-500"
         >
-          Register
+          Sign In
         </button>
       </form>
     </div>

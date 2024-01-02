@@ -25,7 +25,7 @@ export default function RootLayout({
         <UserProvider>
           <CartProvider>
             <Navbar />
-            <main>{children}</main>
+            <main className="h-full max-h-full">{children}</main>
             {/* <Accordian /> */}
             <Footer />
           </CartProvider>
