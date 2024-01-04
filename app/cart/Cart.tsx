@@ -1,16 +1,14 @@
 "use client";
-
-const Cart = ({
-  productCart,
-  cartIncrease,
-  cartDecrease,
-  cartState,
-  cartDispatch,
-}: any) => {
+import { useEffect } from "react";
+const Cart = ({ productCart, cartState, cartDispatch }: any) => {
   const pId = productCart._id;
-  // const [amountCart, setAmount] = useState(productCart.amount);
   const inceraseOperator = "+";
   const decreaseOperator = "-";
+
+  useEffect(() => {
+    console.log(cartState.cart);
+  }, [cartState.cart]);
+
   return (
     <>
       <tr className="text-center">
@@ -22,39 +20,33 @@ const Cart = ({
             <button
               className="btn btn-warning"
               onClick={() => {
-                // console.log(amountCart);
-
-                if (productCart.amount < 5) {
-                  // setAmount(amountCart + 1);
-                  cartDispatch({
-                    type: "UPDATE-COUNT",
-                    payload: { pId, inceraseOperator },
-                  });
-                  console.log(cartState);
-                }
-              }}
-            >
-              +
-            </button>
-            <div>{productCart.amount}</div>
-            <button
-              className="btn btn-warning"
-              onClick={() => {
-                if (productCart.amount > 0) {
-                  // setAmount(amountCart - 1);
+                if (productCart.count <= 5 && productCart.count > 0) {
                   cartDispatch({
                     type: "UPDATE-COUNT",
                     payload: { pId, decreaseOperator },
                   });
-                  console.log(cartState);
                 }
               }}
             >
               -
             </button>
+            <div>{productCart.count}</div>
+            <button
+              className="btn btn-warning"
+              onClick={() => {
+                if (productCart.count < 5 && productCart.count >= 0) {
+                  cartDispatch({
+                    type: "UPDATE-COUNT",
+                    payload: { pId, inceraseOperator },
+                  });
+                }
+              }}
+            >
+              +
+            </button>
           </div>
         </td>
-        <td>{productCart.amount * productCart.price}</td>
+        <td>{productCart.count * productCart.price}</td>
         <td>
           <button
             className="btn btn-accent"

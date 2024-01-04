@@ -1,24 +1,32 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 
 const ProductOne = ({ product }: any) => {
   const value: any = useCart();
   const { cartState, cartDispatch }: any = value;
-  const [amount, setAmount]: any = useState(0);
+  const [count, setCount]: any = useState(0);
+
+  useEffect(() => {
+    // This useEffect will run whenever cartState changes
+    console.log(cartState.cart);
+  }, [cartState.cart]);
 
   const cartIncrease = () => {
-    if (amount < 5) {
-      setAmount(amount + 1);
+    if (count < 5) {
+      // setCount(count + 1);
+      setCount((prevCount: number) => prevCount + 1);
     }
   };
 
   const cartDecrease = () => {
-    if (amount > 0) {
-      setAmount(amount - 1);
+    if (count > 0) {
+      // setCount(count - 1);
+      setCount((prevCount: number) => prevCount - 1);
     }
   };
   const { _id, name, description, images, price } = product;
+  const image = images[0];
   return (
     <div>
       <div className="flex flex-row justify-center gap-x-9 items-center py-16 mx-14">
@@ -40,7 +48,7 @@ const ProductOne = ({ product }: any) => {
               <button className="btn btn-warning" onClick={cartIncrease}>
                 +
               </button>
-              <div className="text-black">{amount}</div>
+              <div className="text-black">{count}</div>
               <button className="btn btn-warning" onClick={cartDecrease}>
                 -
               </button>
@@ -52,10 +60,9 @@ const ProductOne = ({ product }: any) => {
                 onClick={() => {
                   cartDispatch({
                     type: "ADD-TO-CART",
-                    payload: { _id, name, images, amount, price },
+                    payload: { _id, name, image, count, price },
                   });
                   alert("Successfully added to cart");
-                  console.log(cartState);
                 }}
               >
                 Add to cart
