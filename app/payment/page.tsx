@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import bkash from "./bkash";
+import bkash from "./Bkash";
 
 const page = () => {
   const searchParams = useSearchParams();
