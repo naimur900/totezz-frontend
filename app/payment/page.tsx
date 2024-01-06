@@ -1,15 +1,27 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import Bkash from "./Bkash";
+import { useEffect, useState } from "react";
+import bkash from "./bkash";
 
 const page = () => {
   const searchParams = useSearchParams();
   const totalPrice = searchParams.get("totalPrice");
-  const price = totalPrice;
+  const status: any = searchParams.get("status");
+  const [msg, setMsg] = useState("");
 
   const bkashHandler = () => {
-    Bkash();
+    try {
+      bkash(totalPrice);
+    } catch (error) {
+      console.error("Error processing payment:", error);
+    }
   };
+
+  useEffect(() => {
+    if (status === "success") {
+      setMsg(status);
+    }
+  }, [msg]);
 
   return (
     <div>
@@ -20,10 +32,20 @@ const page = () => {
           src="https://freelogopng.com/images/all_img/1656234841bkash-icon-png.png"
           alt=""
         />
-        <h3 className="font-semibold">Pay: {totalPrice} tk</h3>
-        <button className="btn bg-pink-600 text-white" onClick={bkashHandler}>
-          Procceed
-        </button>
+
+        {msg !== "success" ? (
+          <>
+            <h3 className="font-semibold">Pay: {totalPrice} tk</h3>
+            <button
+              className="btn bg-pink-600 text-white"
+              onClick={bkashHandler}
+            >
+              Procceed
+            </button>
+          </>
+        ) : (
+          <h1>{msg}</h1>
+        )}
       </div>
     </div>
   );
