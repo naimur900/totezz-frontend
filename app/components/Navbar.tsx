@@ -1,10 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   let { userState, userDispatch }: any = useUser();
+  const value: any = useCart();
+  const { cartState, cartDispatch } = value;
+
   console.log(userState);
   const router = useRouter();
 
@@ -46,7 +50,18 @@ const Navbar = () => {
                 <a>Profile</a>
               </li>
               <li>
-                <Link href={"/cart"}>Cart</Link>
+                {cartState.cart.length > 0 ? (
+                  <>
+                    <Link href={"/cart"}>
+                      {/* <FontAwesomeIcon icon="faFaceRelieved" /> */}
+                      *Cart
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link href={"/cart"}>Cart</Link>
+                  </>
+                )}
               </li>
             </>
           ) : (
