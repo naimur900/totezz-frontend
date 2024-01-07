@@ -1,11 +1,12 @@
 // import { config } from "@fortawesome/fontawesome-svg-core";
 // import "../node_modules/@fortawesome/fontawesome-svg-core/styles.css";
 // config.autoAddCss = false;
-
+import Loading from "@/loading";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
 
+import { Suspense } from "react";
 import Footer from "./components/Footer";
 import CartProvider from "./context/CartProvider";
 import UserProvider from "./context/UserProvider";
@@ -26,14 +27,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <UserProvider>
-          <CartProvider>
-            <Navbar />
-            <main className="h-full max-h-full">{children}</main>
-            {/* <Accordian /> */}
-            <Footer />
-          </CartProvider>
-        </UserProvider>
+        <Suspense fallback={<Loading />}>
+          <UserProvider>
+            <CartProvider>
+              <Navbar />
+              <main className="h-full max-h-full">{children}</main>
+              {/* <Accordian /> */}
+              <Footer />
+            </CartProvider>
+          </UserProvider>
+        </Suspense>
       </body>
     </html>
   );

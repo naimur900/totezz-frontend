@@ -68,7 +68,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="my-16 mb-32">
+    <div className="h-screen my-16 mb-32">
       <h1 className="text-center my-14">Sign In</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}

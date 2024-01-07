@@ -1,7 +1,7 @@
 // import Accordian from "./components/Accordian";
 
 import Card from "./components/Card";
-import Carousal from "./components/Carousal";
+import Carousel from "./components/Carousel";
 import HomeCenterText from "./components/HomeCenterText";
 
 const Home = async () => {
@@ -11,15 +11,20 @@ const Home = async () => {
   const products = await res.json();
 
   return (
-    <div className="px-10">
-      <Carousal />
+    <div className="px-5 md:px-10">
+      <Carousel />
       <HomeCenterText />
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-center justify-center">
+      <div
+        id="viewProducts"
+        className="text-2xl font-extrabold mb-16 text-center"
+      >
+        Tote Bags
+      </div>
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-center flex-wrap justify-center mb-16">
         {products.map((product: any) => {
           return <Card key={product._id} product={product} />;
         })}
       </div>
-      <div className="p-10"></div>
     </div>
   );
 };

@@ -13,24 +13,22 @@ const Navbar = () => {
   const router = useRouter();
 
   return (
-    <div className="navbar bg-orange-200">
+    <div className="navbar bg-orange-200 mb-16 sticky top-0 z-50">
       <div className="navbar-start">
         <ul className="menu menu-sm flex-row font-bold">
           <li>
             <Link href={"/"}>Home</Link>
           </li>
           <li>
-            <a>Products</a>
+            <Link href={"/#viewProducts"}>Products</Link>
           </li>
           <li>
-            <a>About</a>
+            <Link href={""}>About</Link>
           </li>
         </ul>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">
-          {userState.user ? userState.user.firstName : "Totezz"}
-        </a>
+        <a className="btn btn-ghost text-xl">Totezz</a>
       </div>
       <div className="navbar-end">
         <ul className="flex gap-6 font-bold mx-5">
@@ -47,15 +45,14 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a>Profile</a>
+                <Link href={""}>
+                  {userState.user ? userState.user.firstName : "Profile"}
+                </Link>
               </li>
               <li>
                 {cartState.cart.length > 0 ? (
                   <>
-                    <Link href={"/cart"}>
-                      {/* <FontAwesomeIcon icon="faFaceRelieved" /> */}
-                      *Cart
-                    </Link>
+                    <Link href={"/cart"}>*Cart</Link>
                   </>
                 ) : (
                   <>

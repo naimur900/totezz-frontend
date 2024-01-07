@@ -1,6 +1,6 @@
-const Carousal = () => {
+const Carousel = () => {
   return (
-    <div className="carousel rounded-box flex overflow-hidden my-12">
+    <div className="carousel rounded-box flex overflow-hidden mb-16">
       <div className="carousel-item flex-shrink-0 h-64">
         <img
           className="w-full h-full object-cover"
@@ -48,4 +48,4 @@ const Carousal = () => {
   );
 };
 
-export default Carousal;
+export default Carousel;

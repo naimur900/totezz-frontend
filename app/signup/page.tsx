@@ -59,7 +59,7 @@ export default function SignupPage() {
   };
 
   return (
-    <>
+    <div className="h-screen">
       <h1 className="text-center my-14">Signup</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -123,6 +123,6 @@ export default function SignupPage() {
           Register
         </button>
       </form>
-    </>
+    </div>
   );
 }
