@@ -45,7 +45,7 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <Link href={""}>
+                <Link href={"/admin"}>
                   {userState.user ? userState.user.firstName : "Profile"}
                 </Link>
               </li>

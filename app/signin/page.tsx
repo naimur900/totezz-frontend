@@ -52,7 +52,12 @@ export default function SignInPage() {
 
         userDispatch({
           type: "SET_USER",
-          payload: { email: email, firstName: firstName, lastName: lastName },
+          payload: {
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            token: token,
+          },
         });
         alert("Signin successful!");
         router.push("/");

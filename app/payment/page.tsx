@@ -1,27 +1,41 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import bkash from "./bkash";
+import { useState } from "react";
+import { createPayment, executePayment, queryPayment } from "./bkash";
 
-const page = () => {
+const page = async () => {
   const searchParams = useSearchParams();
   const totalPrice = searchParams.get("totalPrice");
   const status: any = searchParams.get("status");
+  const paymentID: any = searchParams.get("paymentID");
   const [msg, setMsg] = useState("");
 
-  const bkashHandler = () => {
+  const bkashHandler = async () => {
     try {
-      bkash(totalPrice);
+      const createPaymentRes = await createPayment(totalPrice);
+      console.log(createPaymentRes);
+
+      if (createPaymentRes.statusMessage === "Successful") {
+        window.location.replace(createPaymentRes.bkashURL);
+      } else {
+        const queryPaymentRes = await queryPayment(createPaymentRes.paymentID);
+        console.log(queryPaymentRes);
+      }
     } catch (error) {
       console.error("Error processing payment:", error);
     }
   };
 
-  useEffect(() => {
-    if (status === "success") {
-      setMsg(status);
+  if (status === "success") {
+    const executePaymentRes = await executePayment(paymentID);
+    if (executePaymentRes.statusMessage === "Successful") {
+      setMsg(executePaymentRes.statusMessage);
     }
-  }, [msg]);
+  }
+  // useEffect(() => {
+  //   if (status === "success") {
+  //   }
+  // }, [msg]);
 
   return (
     <div>
@@ -32,8 +46,7 @@ const page = () => {
           src="https://freelogopng.com/images/all_img/1656234841bkash-icon-png.png"
           alt=""
         />
-
-        {msg !== "success" ? (
+        {status === null ? (
           <>
             <h3 className="font-semibold">Pay: {totalPrice} tk</h3>
             <button
@@ -44,7 +57,7 @@ const page = () => {
             </button>
           </>
         ) : (
-          <h1>{msg}</h1>
+          <div>{msg}</div>
         )}
       </div>
     </div>
