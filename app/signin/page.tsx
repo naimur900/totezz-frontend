@@ -35,7 +35,7 @@ export default function SignInPage() {
     const { email, password } = data;
 
     try {
-      const response = await fetch("http://localhost:5000/auth/signin", {
+      const response = await fetch("http://localhost:7000/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -13,6 +13,7 @@ const page = async () => {
   const bkashHandler = async () => {
     try {
       const createPaymentRes = await createPayment(totalPrice);
+
       console.log(createPaymentRes);
 
       if (createPaymentRes.statusMessage === "Successful") {

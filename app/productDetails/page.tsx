@@ -5,7 +5,7 @@ const page = async ({ searchParams }: any) => {
   console.log(searchParams.productId);
 
   try {
-    const response = await fetch("http://localhost:5000/product/getone", {
+    const response = await fetch("http://localhost:7000/product/getone", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

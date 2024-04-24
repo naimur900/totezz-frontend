@@ -32,7 +32,7 @@ export default function SignupPage() {
 
     // await new Promise((resolve) => setTimeout(resolve, 5000));
     try {
-      const response = await fetch("http://localhost:5000/auth/signup", {
+      const response = await fetch("http://localhost:7000/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

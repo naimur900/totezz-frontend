@@ -4,6 +4,8 @@ import { postBkash } from "./postBkash";
 const createPayment = async (amount: any) => {
   const baseURL = "http://localhost:7000";
   const payload = { amount: amount };
+  console.log("cpJod");
+
   const res = await postBkash(baseURL + "/createPayment", payload);
   return res;
 };
