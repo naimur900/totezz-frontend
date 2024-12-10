@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const Card = ({ product }: any) => {
+const Card = ({ product }) => {
   const router = useRouter();
   return (
     <div className="card card-compact lg:w-1/5 sm:w-1/3 bg-base-100 shadow-xl">
@@ -25,6 +25,7 @@ const Card = ({ product }: any) => {
             >
               View
             </Link>
+            {/* <Link href={`/productDetails/${product._id}`}>View</Link> */}
           </button>
 
           {/* <button className="btn btn-warning w-1/2">

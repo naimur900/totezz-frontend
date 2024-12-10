@@ -1,21 +1,21 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useCart } from "../context/CartContext";
+import { useCartContext } from "../context/CartContext";
 import Cart from "./Cart";
 
 const cartPage = () => {
-  const value: any = useCart();
+  const value = useCartContext();
   const { cartState, cartDispatch } = value;
-  const [totalItem, setTotalItem] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItem, setTotalItem] = useState(0);
 
   useEffect(() => {
-    let calculatedTotalItem = 0;
     let calculatedTotalPrice = 0;
-    cartState.cart.forEach((product: any) => {
-      calculatedTotalItem += product.count;
-      calculatedTotalPrice += product.count * product.price;
+    let calculatedTotalItem = 0;
+    cartState.map((item) => {
+      calculatedTotalPrice += parseInt(item.price) * parseInt(item.count);
+      calculatedTotalItem += parseInt(item.count);
     });
 
     setTotalItem(calculatedTotalItem);
@@ -25,7 +25,7 @@ const cartPage = () => {
   return (
     <>
       <div className="overflow-x-auto p-24 m-10">
-        {cartState.cart.length > 0 ? (
+        {cartState.length > 0 ? (
           <>
             <table className="table">
               {/* head */}
@@ -39,15 +39,8 @@ const cartPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {cartState.cart.map((productCart: any) => {
-                  return (
-                    <Cart
-                      key={productCart._id}
-                      productCart={productCart}
-                      cartState={cartState}
-                      cartDispatch={cartDispatch}
-                    />
-                  );
+                {cartState.map((item) => {
+                  return <Cart key={item._id} item={item} />;
                 })}
               </tbody>
             </table>

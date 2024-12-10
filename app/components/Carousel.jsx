@@ -43,7 +43,6 @@ const Carousel = () => {
           alt="Burger"
         />
       </div>
-      {/* Add more carousel items with images here */}
     </div>
   );
 };

@@ -6,8 +6,8 @@ import { createPayment, executePayment, queryPayment } from "./bkash";
 const page = async () => {
   const searchParams = useSearchParams();
   const totalPrice = searchParams.get("totalPrice");
-  const status: any = searchParams.get("status");
-  const paymentID: any = searchParams.get("paymentID");
+  const status = searchParams.get("status");
+  const paymentID = searchParams.get("paymentID");
   const [msg, setMsg] = useState("");
 
   const bkashHandler = async () => {

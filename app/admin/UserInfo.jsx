@@ -1,4 +1,4 @@
-const UserInfo = ({ userData }: any) => {
+const UserInfo = (userData) => {
   console.log("Jodd", userData);
   return (
     <>

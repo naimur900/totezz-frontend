@@ -1,11 +1,10 @@
 // import Accordian from "./components/Accordian";
-
 import Card from "./components/Card";
 import Carousel from "./components/Carousel";
 import HomeCenterText from "./components/HomeCenterText";
 
 const Home = async () => {
-  const res = await fetch("http://localhost:7000/product/getall", {
+  const res = await fetch("http://localhost:3030/product/getall", {
     cache: "no-store",
   });
   const products = await res.json();
@@ -21,7 +20,7 @@ const Home = async () => {
         Tote Bags
       </div>
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center flex-wrap justify-center mb-16">
-        {products.map((product: any) => {
+        {products.map((product) => {
           return <Card key={product._id} product={product} />;
         })}
       </div>

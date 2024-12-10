@@ -1,13 +1,13 @@
 "use client";
-import { useUser } from "../context/UserContext";
+import { useUserContext } from "../context/UserContext";
 import UserInfo from "./UserInfo";
 
 const page = async () => {
-  let { userState, userDispatch }: any = useUser();
-  let userData: any = null;
+  let { userState, userDispatch } = useUserContext();
+  let userData = null;
   //   console.log(userState);
   if (userState.user !== null) {
-    const response = await fetch("http://localhost:5000/user/getone", {
+    const response = await fetch("http://localhost:3030/user/getone", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

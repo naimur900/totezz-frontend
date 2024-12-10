@@ -1,28 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useUser } from "../context/UserContext";
-
-// const signUpSchmea = z
-//   .object({
-//     email: z.string().email(),
-//     firstName: z.string().min(2, "Name should be atleast of 2 characters"),
-//     lastName: z.string().min(2, "Name should be atleast of 2 characters"),
-//     contactNumber: z.string().max(11),
-//     password: z.string().min(8, "Password must be atleast 8 characters"),
-//     confirmPassword: z.string().min(8, "Password must be atleast 8 characters"),
-//   })
-//   .refine((data) => data.password === data.confirmPassword, {
-//     message: "Passwords did not match",
-//     path: ["confirmPassword"],
-//   });
-
-// type tSignUpschema = z.infer<typeof signUpSchmea>;
+import { useUserContext } from "../context/UserContext";
 
 export default function SignInPage() {
-  const value = useUser();
+  const { userState, userDispatch } = useUserContext();
   const router = useRouter();
-  const { userState, userDispatch }: any = value;
+  // const { userState, userDispatch } = value;
 
   const {
     register,
@@ -31,11 +15,11 @@ export default function SignInPage() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data) => {
     const { email, password } = data;
 
     try {
-      const response = await fetch("http://localhost:7000/auth/signin", {
+      const response = await fetch("http://localhost:3030/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +29,7 @@ export default function SignInPage() {
           password: password,
         }),
       });
-      const { firstName, lastName, token }: any = await response.json();
+      const { firstName, lastName, token } = await response.json();
 
       if (response.ok) {
         console.log(firstName, lastName, token);

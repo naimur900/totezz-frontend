@@ -1,8 +1,8 @@
 // import axiosPost from "./post";
 import { postBkash } from "./postBkash";
 
-const createPayment = async (amount: any) => {
-  const baseURL = "http://localhost:7000";
+const createPayment = async (amount) => {
+  const baseURL = "http://localhost:3030";
   const payload = { amount: amount };
   console.log("cpJod");
 
@@ -10,15 +10,15 @@ const createPayment = async (amount: any) => {
   return res;
 };
 
-const executePayment = async (paymentID: String) => {
-  const baseURL = "http://localhost:7000";
+const executePayment = async (paymentID) => {
+  const baseURL = "http://localhost:3030";
   const payload = { paymentID };
   const res = await postBkash(baseURL + "/executePayment", payload);
   return res;
 };
 
-const queryPayment = async (paymentID: String) => {
-  const baseURL = "http://localhost:7000";
+const queryPayment = async (paymentID) => {
+  const baseURL = "http://localhost:3030";
   const payload = { paymentID };
   const res = await postBkash(baseURL + "/queryPayment", payload);
   return res;

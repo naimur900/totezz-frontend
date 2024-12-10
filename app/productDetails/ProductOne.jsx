@@ -1,35 +1,35 @@
 "use client";
+import { useEffect, useState } from "react";
+import { useCartContext } from "../context/CartContext";
 
 const ProductOne = ({ product }) => {
-  // const value = useCart();
-  // const { cartState, cartDispatch } = value;
-  // const [count, setCount] = useState(0);
+  const value = useCartContext();
+  const { cartState, cartDispatch } = value;
+  const [count, setCount] = useState(0);
 
-  // useEffect(() => {
-  //   // This useEffect will run whenever cartState changes
-  //   console.log(cartState.cart);
-  // }, [cartState.cart]);
+  useEffect(() => {
+    console.log(cartState.cart);
+  }, [cartState]);
 
-  // const cartIncrease = () => {
-  //   if (count < 5) {
-  //     // setCount(count + 1);
-  //     setCount((prevCount) => prevCount + 1);
-  //   }
-  // };
+  const cartIncrease = () => {
+    if (count < 5) {
+      setCount((prevCount) => prevCount + 1);
+    }
+  };
 
-  // const cartDecrease = () => {
-  //   if (count > 0) {
-  //     // setCount(count - 1);
-  //     setCount((prevCount) => prevCount - 1);
-  //   }
-  // };
+  const cartDecrease = () => {
+    if (count > 0) {
+      setCount((prevCount) => prevCount - 1);
+    }
+  };
+
   const { _id, name, description, images, price } = product;
-  // const image = images[0];
+  const image = images[0];
   return (
     <div className="container p-7 flex flex-col items-center justify-center gap-7 md:flex-row md:p-12 md:gap-10 lg:gap-14 lg:p-20 xl:p-28">
       <img
         className="object-fit rounded-2xl w-4/6 md:w-2/5 lg:w-2/6"
-        src={images[0]}
+        src={image}
         alt=""
       />
       <div className="flex flex-col justify-center items-center text-center md:w-3/5 lg:3/6">
@@ -40,21 +40,25 @@ const ProductOne = ({ product }) => {
         </div>
         <div className="flex gap-6 my-10">
           <div className="flex justify-center items-center gap-6">
-            <button className="btn btn-warning">+</button>
-            <div className="text-black">2</div>
-            <button className="btn btn-warning">-</button>
+            <button className="btn btn-warning" onClick={cartIncrease}>
+              +
+            </button>
+            <div className="text-black">{count}</div>
+            <button className="btn btn-warning" onClick={cartDecrease}>
+              -
+            </button>
           </div>
 
           <div>
             <button
               className="btn btn-primary"
-              // onClick={() => {
-              //   // cartDispatch({
-              //   //   type: "ADD-TO-CART",
-              //   //   payload: { _id, name, image, count, price },
-              //   // });
-              //   // alert("Successfully added to cart");
-              // }}
+              onClick={() => {
+                cartDispatch({
+                  type: "ADD-TO-CART",
+                  payload: { _id, name, image, count, price },
+                });
+                alert("Successfully added to cart");
+              }}
             >
               Add to cart
             </button>

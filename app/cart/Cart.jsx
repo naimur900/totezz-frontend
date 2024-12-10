@@ -1,43 +1,49 @@
 "use client";
 import { useEffect } from "react";
-const Cart = ({ productCart, cartState, cartDispatch }: any) => {
-  const pId = productCart._id;
-  const inceraseOperator = "+";
-  const decreaseOperator = "-";
+import { useCartContext } from "../context/CartContext";
+
+const Cart = ({ item }) => {
+  const { cartState, cartDispatch } = useCartContext();
 
   useEffect(() => {
-    console.log(cartState.cart);
-  }, [cartState.cart]);
+    console.log(cartState);
+  }, [cartState]);
 
   return (
     <>
       <tr className="text-center">
-        {/* <td>{productCart._id}</td> */}
-        <td>{productCart.name}</td>
-        <td>{productCart.price}</td>
+        {/* <td>{item._id}</td> */}
+        <td>{item.name}</td>
+        <td>{item.price}</td>
         <td>
           <div className="flex gap-5 justify-center items-center">
             <button
               className="btn btn-warning"
               onClick={() => {
-                if (productCart.count <= 5 && productCart.count > 0) {
+                if (item.count <= 5 && item.count > 0) {
                   cartDispatch({
-                    type: "UPDATE-COUNT",
-                    payload: { pId, decreaseOperator },
+                    type: "UPDATE-CART",
+                    payload: {
+                      _id: item._id,
+                      count: item.count - 1,
+                    },
                   });
                 }
               }}
             >
               -
             </button>
-            <div>{productCart.count}</div>
+            <div>{item.count}</div>
             <button
               className="btn btn-warning"
               onClick={() => {
-                if (productCart.count < 5 && productCart.count >= 0) {
+                if (item.count < 5 && item.count >= 0) {
                   cartDispatch({
-                    type: "UPDATE-COUNT",
-                    payload: { pId, inceraseOperator },
+                    type: "UPDATE-CART",
+                    payload: {
+                      _id: item._id,
+                      count: item.count + 1,
+                    },
                   });
                 }
               }}
@@ -46,14 +52,14 @@ const Cart = ({ productCart, cartState, cartDispatch }: any) => {
             </button>
           </div>
         </td>
-        <td>{productCart.count * productCart.price}</td>
+        <td>{item.count * item.price}</td>
         <td>
           <button
             className="btn btn-accent"
-            onClick={(productCart) => {
+            onClick={() => {
               cartDispatch({
                 type: "REMOVE-FROM-CART",
-                payload: { pId },
+                payload: { _id: item._id },
               });
             }}
           >

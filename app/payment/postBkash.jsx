@@ -1,4 +1,4 @@
-export const postBkash = async (endPointURL: any, payload: any) => {
+export const postBkash = async (endPointURL, payload) => {
   try {
     const response = await fetch(endPointURL, {
       method: "POST",
@@ -7,7 +7,7 @@ export const postBkash = async (endPointURL: any, payload: any) => {
       },
       body: JSON.stringify(payload),
     });
-    const data: any = await response.json();
+    const data = await response.json();
     console.log(data);
 
     return data;

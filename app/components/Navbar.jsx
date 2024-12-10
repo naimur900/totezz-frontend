@@ -1,16 +1,19 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCart } from "../context/CartContext";
-import { useUser } from "../context/UserContext";
+import { useEffect } from "react";
+import { useCartContext } from "../context/CartContext";
+import { useUserContext } from "../context/UserContext";
 
 const Navbar = () => {
-  let { userState, userDispatch }: any = useUser();
-  const value: any = useCart();
-  const { cartState, cartDispatch } = value;
+  let { userState, userDispatch } = useUserContext();
+  const { cartState, cartDispatch } = useCartContext();
 
-  console.log(userState);
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(cartState, userState);
+  }, [cartState, userState]);
 
   return (
     <div className="navbar bg-orange-200 mb-16 sticky top-0 z-50">
@@ -32,7 +35,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <ul className="flex gap-6 font-bold mx-5">
-          {userState.user ? (
+          {userState.length > 0 ? (
             <>
               <li>
                 <a
@@ -46,11 +49,11 @@ const Navbar = () => {
               </li>
               <li>
                 <Link href={"/admin"}>
-                  {userState.user ? userState.user.firstName : "Profile"}
+                  {userState.length > 0 ? userState[0].firstName : "Profile"}
                 </Link>
               </li>
               <li>
-                {cartState.cart.length > 0 ? (
+                {cartState.length > 0 ? (
                   <>
                     <Link href={"/cart"}>*Cart</Link>
                   </>
