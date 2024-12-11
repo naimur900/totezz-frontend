@@ -29,7 +29,7 @@ export default function SignInPage() {
           password: password,
         }),
       });
-      const { firstName, lastName, token } = await response.json();
+      const { firstName, lastName, token, isAdmin } = await response.json();
 
       if (response.ok) {
         console.log(firstName, lastName, token);
@@ -41,6 +41,7 @@ export default function SignInPage() {
             firstName: firstName,
             lastName: lastName,
             token: token,
+            isAdmin: isAdmin,
           },
         });
         alert("Signin successful!");

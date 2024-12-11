@@ -1,15 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCartContext } from "../context/CartContext";
+import { useUserContext } from "../context/UserContext";
 
 const ProductOne = ({ product }) => {
   const value = useCartContext();
-  const { cartState, cartDispatch } = value;
+  const { cartDispatch } = value;
   const [count, setCount] = useState(0);
+  const { userState } = useUserContext();
 
-  // useEffect(() => {
-  //   console.log(cartState.cart);
-  // }, [cartState]);
+  useEffect(() => {
+    console.log(userState);
+  }, [userState]);
 
   const cartIncrease = () => {
     if (count < 5) {
@@ -38,7 +40,51 @@ const ProductOne = ({ product }) => {
           <h3>{description}</h3>
           <h3 className="font-semibold mt-7 text-xl">{price}Tk</h3>
         </div>
+
         <div className="flex gap-6 my-10">
+          {userState[0]?.isAdmin && (
+            <button
+              className="btn btn-error"
+              onClick={async () => {
+                cartDispatch({
+                  type: "REMOVE-FROM-CART",
+                  payload: { _id: _id },
+                });
+
+                console.log(_id);
+
+                try {
+                  const response = await fetch(
+                    "http://localhost:3030/product/delete",
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${userState[0].token}`,
+                      },
+                      body: JSON.stringify({
+                        productId: _id,
+                      }),
+                    }
+                  );
+
+                  if (response.ok) {
+                    alert("Product deleted successful!");
+                    window.location.replace("http://localhost:3000/");
+                  } else {
+                    const error = await response.json();
+                    alert(error.message);
+                  }
+                } catch (error) {
+                  alert("An error occurred during Deletion.");
+                  console.error(error);
+                }
+              }}
+            >
+              Delete
+            </button>
+          )}
+
           <div className="flex justify-center items-center gap-6">
             <button className="btn btn-warning" onClick={cartIncrease}>
               +

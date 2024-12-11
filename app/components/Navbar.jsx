@@ -43,14 +43,14 @@ const Navbar = () => {
                     router.push("/signin");
                   }}
                 >
-                  Logout
+                  Logout - {userState[0].firstName}
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <Link href={"/admin"}>
                   {userState.length > 0 ? userState[0].firstName : "Profile"}
                 </Link>
-              </li>
+              </li> */}
               <li>
                 {cartState.length > 0 ? (
                   <>
@@ -61,6 +61,9 @@ const Navbar = () => {
                     <Link href={"/cart"}>Cart</Link>
                   </>
                 )}
+              </li>
+              <li>
+                <Link href={"/addProduct"}>Add Product</Link>
               </li>
             </>
           ) : (
