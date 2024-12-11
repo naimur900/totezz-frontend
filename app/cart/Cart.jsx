@@ -1,13 +1,12 @@
 "use client";
-import { useEffect } from "react";
 import { useCartContext } from "../context/CartContext";
 
 const Cart = ({ item }) => {
   const { cartState, cartDispatch } = useCartContext();
 
-  useEffect(() => {
-    console.log(cartState);
-  }, [cartState]);
+  // useEffect(() => {
+  //   console.log(cartState);
+  // }, [cartState]);
 
   return (
     <>

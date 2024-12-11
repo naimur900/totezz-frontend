@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCartContext } from "../context/CartContext";
 
 const ProductOne = ({ product }) => {
@@ -7,9 +7,9 @@ const ProductOne = ({ product }) => {
   const { cartState, cartDispatch } = value;
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    console.log(cartState.cart);
-  }, [cartState]);
+  // useEffect(() => {
+  //   console.log(cartState.cart);
+  // }, [cartState]);
 
   const cartIncrease = () => {
     if (count < 5) {

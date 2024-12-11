@@ -11,6 +11,7 @@ const createPayment = async (amount) => {
 };
 
 const executePayment = async (paymentID) => {
+  console.log("Execute ae ashlam");
   const baseURL = "http://localhost:3030";
   const payload = { paymentID };
   const res = await postBkash(baseURL + "/executePayment", payload);

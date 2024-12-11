@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useCartContext } from "../context/CartContext";
 import { useUserContext } from "../context/UserContext";
 
@@ -11,9 +10,9 @@ const Navbar = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    console.log(cartState, userState);
-  }, [cartState, userState]);
+  // useEffect(() => {
+  //   console.log(cartState, userState);
+  // }, [cartState, userState]);
 
   return (
     <div className="navbar bg-orange-200 mb-16 sticky top-0 z-50">

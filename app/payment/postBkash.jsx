@@ -1,5 +1,7 @@
 export const postBkash = async (endPointURL, payload) => {
   try {
+    console.log("Inside post");
+
     const response = await fetch(endPointURL, {
       method: "POST",
       headers: {

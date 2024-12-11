@@ -1,42 +1,63 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCartContext } from "../context/CartContext";
 import { createPayment, executePayment, queryPayment } from "./bkash";
 
-const page = async () => {
+const Page = () => {
   const searchParams = useSearchParams();
   const totalPrice = searchParams.get("totalPrice");
   const status = searchParams.get("status");
   const paymentID = searchParams.get("paymentID");
+  const { cartDispatch } = useCartContext();
   const [msg, setMsg] = useState("");
+  const [trxID, setTrxID] = useState("");
 
   const bkashHandler = async () => {
     try {
       const createPaymentRes = await createPayment(totalPrice);
 
-      console.log(createPaymentRes);
-
-      if (createPaymentRes.statusMessage === "Successful") {
+      if (
+        createPaymentRes.statusMessage === "Successful" &&
+        createPaymentRes.statusCode === "0000"
+      ) {
         window.location.replace(createPaymentRes.bkashURL);
+        return;
       } else {
         const queryPaymentRes = await queryPayment(createPaymentRes.paymentID);
-        console.log(queryPaymentRes);
+        // console.log(queryPaymentRes);
       }
     } catch (error) {
       console.error("Error processing payment:", error);
     }
   };
 
-  if (status === "success") {
-    const executePaymentRes = await executePayment(paymentID);
-    if (executePaymentRes.statusMessage === "Successful") {
-      setMsg(executePaymentRes.statusMessage);
+  useEffect(() => {
+    console.log(paymentID, status);
+
+    if (status === "success" && paymentID) {
+      const handleExecutePayment = async () => {
+        try {
+          const executePaymentRes = await executePayment(paymentID);
+
+          if (executePaymentRes.statusMessage === "Successful") {
+            setTrxID(executePaymentRes.trxID);
+            setMsg(executePaymentRes.statusMessage);
+            cartDispatch({
+              type: "REMOVE-ALL",
+            });
+          }
+          //  else {
+          //   console.error("Payment execution failed:", executePaymentRes);
+          // }
+        } catch (error) {
+          console.error("Error executing payment:", error);
+        }
+      };
+
+      handleExecutePayment();
     }
-  }
-  // useEffect(() => {
-  //   if (status === "success") {
-  //   }
-  // }, [msg]);
+  }, [status, paymentID]);
 
   return (
     <div>
@@ -45,7 +66,7 @@ const page = async () => {
         <img
           className="w-32"
           src="https://freelogopng.com/images/all_img/1656234841bkash-icon-png.png"
-          alt=""
+          alt="bKash Logo"
         />
         {status === null ? (
           <>
@@ -54,15 +75,17 @@ const page = async () => {
               className="btn bg-pink-600 text-white"
               onClick={bkashHandler}
             >
-              Procceed
+              Proceed
             </button>
           </>
         ) : (
-          <div>{msg}</div>
+          <div>
+            {msg} {trxID}
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
