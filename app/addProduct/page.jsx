@@ -32,7 +32,8 @@ function AddProductPage() {
           description: description,
           price: parseInt(price, 10),
           stock: parseInt(stock, 10),
-          images: images.split(",").map((image) => image.trim()),
+          // images: images.split(",").map((image) => image.trim()),
+          images: [images],
         }),
       });
 
@@ -118,9 +119,9 @@ function AddProductPage() {
         )}
         <input
           type="text"
-          placeholder="Image Links (comma-separated)"
+          placeholder="Image Links"
           {...register("images", {
-            required: "At least one image link is required",
+            required: "One image link is required",
           })}
           className="input input-bordered w-full max-w-xs mb-2"
         />

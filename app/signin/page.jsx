@@ -29,26 +29,31 @@ export default function SignInPage() {
           password: password,
         }),
       });
-      const { firstName, lastName, token, isAdmin } = await response.json();
-
-      if (response.ok) {
-        console.log(firstName, lastName, token);
-
-        userDispatch({
-          type: "SET_USER",
-          payload: {
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            token: token,
-            isAdmin: isAdmin,
-          },
-        });
-        alert("Signin successful!");
-        router.push("/");
+      if (response.statusText == "Unauthorized") {
+        alert("Unautorized access");
       } else {
-        const error = await response.json(); // Extract error message
-        alert(error.message); // Show error message
+        const { firstName, lastName, token, isAdmin } = await response.json();
+
+        if (response.ok) {
+          console.log(firstName, lastName, token);
+
+          userDispatch({
+            type: "SET_USER",
+            payload: {
+              email: email,
+              firstName: firstName,
+              lastName: lastName,
+              token: token,
+              isAdmin: isAdmin,
+            },
+          });
+          alert("Signin successful!");
+          router.push("/");
+        }
+
+        // } else {
+        //   const error = await response.json(); // Extract error message
+        //   alert(error.message); // Show error message
       }
     } catch (error) {
       console.log("Error occurred:", error);
